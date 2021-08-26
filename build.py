@@ -21,10 +21,12 @@ def main():
     smiles_path = output_directory.joinpath("reaction_smiles.tsv")
     fingerprints_path = output_directory.joinpath("reaction_fingerprints.pkl.gz")
 
+    tqdm.write("Downloading MDL files")
     directory = module.ensure_untar(
         url="ftp://ftp.expasy.org/databases/rhea/ctfiles/rhea-rxn.tar.gz",
     )
 
+    # Search for all rxn files
     paths = list(directory.joinpath("rxn").glob("*.rxn"))
 
     rows = []
@@ -33,10 +35,12 @@ def main():
             rxn = AllChem.ReactionFromRxnFile(path.as_posix())
             rxn.Initialize()
             # rdChemReactions.PreprocessReaction(rxn)
-            rows.append((
-                path.stem,
-                rdChemReactions.ReactionToSmiles(rxn),
-            ))
+            rows.append(
+                (
+                    path.stem,
+                    rdChemReactions.ReactionToSmiles(rxn),
+                )
+            )
         except (ValueError, RuntimeError) as e:
             tqdm.write(f"failed: {path.name}")
 
@@ -50,5 +54,5 @@ def main():
     rxn_df.to_pickle(fingerprints_path)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

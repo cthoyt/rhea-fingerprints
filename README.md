@@ -6,6 +6,15 @@ in [Rhea](https://www.rhea-db.org).
 
 ## 🚀 Usage
 
+Installation of the requirements and running of the build script are handled with `tox`. The current
+version of Rhea is looked up with [`bioversions`](https://github.com/cthoyt/bioversions) so the
+provenance of the data can be properly traced. Run with:
+
+```shell
+$ pip install tox
+$ tox
+```
+
 The SMILES dataframe and DRFP-derived fingerprint dataframe can be loaded from GitHub with:
 
 ```python
