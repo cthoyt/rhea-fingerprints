@@ -3,16 +3,6 @@
 Creating [differential reaction fingerprints](https://github.com/reymond-group/drfp) on reactions
 in [Rhea](https://www.rhea-db.org).
 
-Differential reaction fingerprints can be cited with:
-
-```bibtex
-@article{probst_schwaller_reymond_2021,
-    author = {Probst, Daniel and Schwaller, Philippe and Reymond, Jean-Louis},   
-    title = {Reaction Classification and Yield Prediction using the Differential Reaction Fingerprint DRFP},
-    doi = {10.33774/chemrxiv-2021-mc870},
-    journal = {ChemRxiv},
-    year = {2021}
-}
 ```
 
 ## 🚀 Usage
@@ -33,8 +23,11 @@ fingerprint_df = pd.read_pickle(fingerprint_url)
 
 Code in this repository is licensed under the MIT License. Redistribution of parts of the Rhea
 database are redistributed under the CC-BY-4.0
-license ([more information here](https://www.rhea-db.org/help/license-disclaimer)). If you use this
-repository, please cite Rhea as follows:
+license ([more information here](https://www.rhea-db.org/help/license-disclaimer)).
+
+## 🙏 Acknowledgements
+
+Rhea can be cited with:
 
 ```bibtex
 @article{Lombardot2019,
@@ -49,5 +42,17 @@ repository, please cite Rhea as follows:
     url = {http://www.ncbi.nlm.nih.gov/pubmed/30272209 http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=PMC6324061},
     volume = {47},
     year = {2019}
+}
+```
+
+Differential reaction fingerprints can be cited with:
+
+```bibtex
+@article{probst_schwaller_reymond_2021,
+    author = {Probst, Daniel and Schwaller, Philippe and Reymond, Jean-Louis},
+    title = {Reaction Classification and Yield Prediction using the Differential Reaction Fingerprint DRFP},
+    doi = {10.33774/chemrxiv-2021-mc870},
+    journal = {ChemRxiv},
+    year = {2021}
 }
 ```
