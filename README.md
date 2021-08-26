@@ -41,13 +41,11 @@ Rhea can be cited with:
 @article{Lombardot2019,
     author = {Lombardot, Thierry and Morgat, Anne and Axelsen, Kristian B and Aimo, Lucila and Hyka-Nouspikel, Nevila and Niknejad, Anne and Ignatchenko, Alex and Xenarios, Ioannis and Coudert, Elisabeth and Redaschi, Nicole and Bridge, Alan},
     doi = {10.1093/nar/gky876},
-    issn = {1362-4962},
     journal = {Nucleic acids research},
     number = {D1},
     pages = {D596--D600},
     pmid = {30272209},
     title = {{Updates in Rhea: SPARQLing biochemical reaction data.}},
-    url = {http://www.ncbi.nlm.nih.gov/pubmed/30272209 http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=PMC6324061},
     volume = {47},
     year = {2019}
 }
