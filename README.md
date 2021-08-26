@@ -1,9 +1,8 @@
 # rhea-drfp
 
-Creating [differential reaction fingerprints](https://github.com/reymond-group/drfp) on reactions
+This repository
+generates [differential reaction fingerprints](https://github.com/reymond-group/drfp) for reactions
 in [Rhea](https://www.rhea-db.org).
-
-```
 
 ## 🚀 Usage
 
