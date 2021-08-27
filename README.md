@@ -23,9 +23,13 @@ import pandas as pd
 smiles_url = "https://github.com/cthoyt/rhea-drfp/raw/main/output/119/reaction_smiles.tsv"
 smiles_df = pd.read_csv(smiles_url, sep="\t")
 
-fingerprint_url = "https://github.com/cthoyt/rhea-drfp/raw/main/output/119/reaction_fingerprints.pkl.gz"
-fingerprint_df = pd.read_pickle(fingerprint_url)
+fingerprint_url = "https://github.com/cthoyt/rhea-drfp/raw/main/output/119/reaction_fingerprints.tsv.gz"
+fingerprint_df = pd.read_csv(fingerprint_url, sep="\t")
 ```
+
+Here's a 2D PCA scatterplot of the embeddings:
+
+![Scatterplot of DRFPs](output/119/scatter.png)
 
 ## ⚖️ License
 
