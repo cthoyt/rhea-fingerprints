@@ -24,7 +24,7 @@ smiles_url = "https://github.com/cthoyt/rhea-drfp/raw/main/output/119/reaction_s
 smiles_df = pd.read_csv(smiles_url, sep="\t")
 
 fingerprint_url = "https://github.com/cthoyt/rhea-drfp/raw/main/output/119/reaction_fingerprints.tsv.gz"
-fingerprint_df = pd.read_csv(fingerprint_url, sep="\t")
+fingerprint_df = pd.read_csv(fingerprint_url, sep="\t", index_col=0)
 ```
 
 Here's a 2D PCA scatterplot of the embeddings:

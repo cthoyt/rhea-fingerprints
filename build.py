@@ -3,6 +3,7 @@ import pathlib
 import bioversions
 import click
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 import pystow
 import seaborn as sns
@@ -31,7 +32,8 @@ def main(force: bool):
 
     if reaction_fingerprints_path.is_file() and not force:
         click.echo("Loading reaction dataframe")
-        fingerprint_df = pd.read_csv(reaction_fingerprints_path, sep="\t")
+        fingerprint_df = pd.read_csv(reaction_fingerprints_path, sep="\t", index_col=0)
+        click.echo("Loaded reaction dataframe")
     else:
         # Use a version-specific PyStow directory for reproducible downloading
         # of external resources
@@ -43,7 +45,7 @@ def main(force: bool):
         tqdm.write("Downloaded/unpacking reaction archive")
 
         # Search for all rxn files
-        paths = list(directory.joinpath("rxn").glob("*.rxn"))
+        paths = sorted(directory.joinpath("rxn").glob("*.rxn"))
 
         rows = []
         for path in tqdm(
@@ -69,18 +71,41 @@ def main(force: bool):
         fingerprint_df = pd.DataFrame(
             DrfpEncoder.encode(smiles_df.smiles), index=smiles_df.rhea_id
         )
-        fingerprint_df.to_csv(reaction_fingerprints_path, sep="\t", index=False)
+        fingerprint_df.to_csv(reaction_fingerprints_path, sep="\t")
 
-    pca = PCA(2)
-    transformed = pd.DataFrame(
-        pca.fit_transform(fingerprint_df), index=fingerprint_df.index
+    fig, (lax, rax) = plt.subplots(1, 2, figsize=(10, 4))
+
+    # Calculating scree plot
+    pca_full = PCA()
+    pca_full.fit(fingerprint_df)
+    y = np.cumsum(pca_full.explained_variance_ratio_)
+    x = np.arange(y.shape[0])
+    sns.lineplot(x=x, y=y, ax=lax)
+    lax.axhline(0.80, linestyle="--", color="red")
+    lax.axhline(0.90, linestyle="--", color="goldenrod")
+    lax.axhline(0.95, linestyle="--", color="green")
+    lax.set_title("PCA Scree Plot")
+    lax.set_xlabel("Number Components")
+    lax.set_ylabel("Cumulative Explained Variance")
+
+    pca_2d = PCA(2)
+    transformed_df = pd.DataFrame(
+        pca_2d.fit_transform(fingerprint_df), index=fingerprint_df.index
     )
-    fig, ax = plt.subplots()
     sns.scatterplot(
-        data=transformed, x=transformed.columns[0], y=transformed.columns[1], ax=ax
+        data=transformed_df,
+        x=transformed_df.columns[0],
+        y=transformed_df.columns[1],
+        ax=rax,
     )
+    rax.set_xlabel("PC1")
+    rax.set_ylabel("PC2")
+    rax.set_title("PCA 2D Reduction")
+
+    plt.tight_layout()
     fig.savefig(output.joinpath("scatter.svg"))
     fig.savefig(output.joinpath("scatter.png"), dpi=300)
+    plt.close(fig)
 
 
 if __name__ == "__main__":
