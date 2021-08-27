@@ -31,6 +31,10 @@ Here's a 2D PCA scatterplot of the embeddings:
 
 ![Scatterplot of DRFPs](output/119/scatter.png)
 
+Future work: figure out what's going on in these clusters. I'd bet they correspond to different
+reaction types enzyme classes, but the rhea-EC code mapping doesn't cover _any_ of them for
+some reason.
+
 ## ⚖️ License
 
 Code in this repository is licensed under the MIT License. Redistribution of parts of the Rhea
