@@ -1,4 +1,4 @@
-# rhea-drfp
+# rhea-fingerprints
 
 This repository
 generates [differential reaction fingerprints](https://github.com/reymond-group/drfp) for reactions
@@ -20,10 +20,10 @@ The SMILES dataframe and DRFP-derived fingerprint dataframe can be loaded from G
 ```python
 import pandas as pd
 
-smiles_url = "https://github.com/cthoyt/rhea-drfp/raw/main/output/119/reaction_smiles.tsv"
+smiles_url = "https://github.com/cthoyt/rhea-fingerprints/raw/main/output/119/reaction_smiles.tsv"
 smiles_df = pd.read_csv(smiles_url, sep="\t")
 
-fingerprint_url = "https://github.com/cthoyt/rhea-drfp/raw/main/output/119/reaction_fingerprints.tsv.gz"
+fingerprint_url = "https://github.com/cthoyt/rhea-fingerprints/raw/main/output/119/reaction_fingerprints.tsv.gz"
 fingerprint_df = pd.read_csv(fingerprint_url, sep="\t", index_col=0)
 ```
 
