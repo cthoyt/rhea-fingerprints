@@ -90,16 +90,17 @@ def main(force: bool):
 
     pca_2d = PCA(2)
     transformed_df = pd.DataFrame(
-        pca_2d.fit_transform(fingerprint_df), index=fingerprint_df.index
+        pca_2d.fit_transform(fingerprint_df),
+        index=fingerprint_df.index.map(str),
+        columns=["PC1", "PC2"],
     )
+    transformed_df.to_csv(output.joinpath("reaction_fingerprints_2d.tsv"), sep="\t")
     sns.scatterplot(
         data=transformed_df,
-        x=transformed_df.columns[0],
-        y=transformed_df.columns[1],
+        x="PC1",
+        y="PC2",
         ax=rax,
     )
-    rax.set_xlabel("PC1")
-    rax.set_ylabel("PC2")
     rax.set_title("PCA 2D Reduction")
 
     plt.tight_layout()
