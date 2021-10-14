@@ -14,7 +14,7 @@ from sklearn.decomposition import PCA
 from tqdm import tqdm
 
 HERE = pathlib.Path(__file__).parent.resolve()
-MODULE = pystow.module("bio", "biogrid")
+MODULE = pystow.module("bio", "rhea")
 
 
 @click.command()
