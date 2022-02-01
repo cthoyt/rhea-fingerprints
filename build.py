@@ -84,7 +84,7 @@ def main(force: bool):
     lax.axhline(0.80, linestyle="--", color="red")
     lax.axhline(0.90, linestyle="--", color="goldenrod")
     lax.axhline(0.95, linestyle="--", color="green")
-    lax.set_title("PCA Scree Plot")
+    lax.set_title(f"PCA Scree Plot (Rhea v{version})")
     lax.set_xlabel("Number Components")
     lax.set_ylabel("Cumulative Explained Variance")
 
@@ -101,7 +101,7 @@ def main(force: bool):
         y="PC2",
         ax=rax,
     )
-    rax.set_title("PCA 2D Reduction")
+    rax.set_title(f"PCA 2D Reduction (Rhea v{version})")
 
     plt.tight_layout()
     fig.savefig(output.joinpath("scatter.svg"))
