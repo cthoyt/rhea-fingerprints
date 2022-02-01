@@ -19,6 +19,7 @@ HERE = pathlib.Path(__file__).parent.resolve()
 MODULE = pystow.module("bio", "rhea")
 
 README_PATH = HERE.joinpath("README.md")
+UNKNOWN_LABEL = "Unknown"
 
 environment = Environment(
     autoescape=True, loader=FileSystemLoader(HERE), trim_blocks=False
@@ -101,7 +102,7 @@ def main(force: bool, random_state: int):
                 continue
 
             ec_code = master_to_eccode.get(master_id)
-            ec_class = "Unknown" if ec_code is None else ec_code.split(".")[0]
+            ec_class = UNKNOWN_LABEL if ec_code is None else ec_code.split(".")[0]
 
             try:
                 rxn = AllChem.ReactionFromRxnFile(path.as_posix())
@@ -127,7 +128,7 @@ def main(force: bool, random_state: int):
 
         click.echo("Calculating differential reaction fingerprints")
         fingerprint_df = pd.DataFrame(
-            DrfpEncoder.encode(metadata_df.smiles), index=metadata_df.rhea_id
+            DrfpEncoder.encode(metadata_df.smiles), index=metadata_df.index
         )
         fingerprint_df.to_csv(fingerprints_path, sep="\t")
 
@@ -159,12 +160,14 @@ def main(force: bool, random_state: int):
     transformed_df["cluster"] = kmeans.fit_predict(
         PCA(64, random_state=random_state).fit_transform(fingerprint_df)
     ).astype(str)
+    transformed_df["class"] = list(metadata_df["enzyme_class"])
     transformed_df.to_csv(fingerprints_2d_path, sep="\t")
     sns.scatterplot(
-        data=transformed_df,
+        data=transformed_df[transformed_df["class"] != UNKNOWN_LABEL],
         x="PC1",
         y="PC2",
-        hue="cluster",
+        hue="class",
+        alpha=0.2,
         ax=rax,
     )
     rax.set_title(f"PCA 2D Reduction (Rhea v{version})")
