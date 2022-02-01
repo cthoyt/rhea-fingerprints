@@ -8,6 +8,7 @@ import pandas as pd
 import pystow
 import seaborn as sns
 from drfp import DrfpEncoder
+from jinja2 import Environment, FileSystemLoader
 from more_click import force_option, verbose_option
 from rdkit.Chem import AllChem, rdChemReactions
 from sklearn.cluster import KMeans
@@ -16,6 +17,13 @@ from tqdm import tqdm
 
 HERE = pathlib.Path(__file__).parent.resolve()
 MODULE = pystow.module("bio", "rhea")
+
+README_PATH = HERE.joinpath("README.md")
+
+environment = Environment(
+    autoescape=True, loader=FileSystemLoader(HERE), trim_blocks=False
+)
+index_template = environment.get_template("README.md.jinja")
 
 
 @click.command()
@@ -73,6 +81,8 @@ def main(force: bool):
             DrfpEncoder.encode(smiles_df.smiles), index=smiles_df.rhea_id
         )
         fingerprint_df.to_csv(reaction_fingerprints_path, sep="\t")
+
+    README_PATH.write_text(index_template.render(version=version) + "\n")
 
     fig, (lax, rax) = plt.subplots(1, 2, figsize=(10, 4))
 

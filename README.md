@@ -20,16 +20,16 @@ The SMILES dataframe and DRFP-derived fingerprint dataframe can be loaded from G
 ```python
 import pandas as pd
 
-smiles_url = "https://github.com/cthoyt/rhea-fingerprints/raw/main/output/119/reaction_smiles.tsv"
+smiles_url = "https://github.com/cthoyt/rhea-fingerprints/raw/main/output/120/reaction_smiles.tsv"
 smiles_df = pd.read_csv(smiles_url, sep="\t")
 
-fingerprint_url = "https://github.com/cthoyt/rhea-fingerprints/raw/main/output/119/reaction_fingerprints.tsv.gz"
+fingerprint_url = "https://github.com/cthoyt/rhea-fingerprints/raw/main/output/120/reaction_fingerprints.tsv.gz"
 fingerprint_df = pd.read_csv(fingerprint_url, sep="\t", index_col=0)
 ```
 
 Here's a 2D PCA scatterplot of the embeddings:
 
-![Scatterplot of DRFPs](output/119/scatter.png)
+![Scatterplot of DRFPs](output/120/scatter.png)
 
 Future work: figure out what's going on in these clusters. I'd bet they correspond to different
 reaction types enzyme classes, but the rhea-EC code mapping doesn't cover _any_ of them for
