@@ -29,7 +29,8 @@ index_template = environment.get_template("README.md.jinja")
 @click.command()
 @verbose_option
 @force_option
-def main(force: bool):
+@click.option("--random-state", type=int, default=0)
+def main(force: bool, random_state: int):
     """Generate SMILES and differential reaction fingerprints for each Rhea entry."""
     # Get the current version of Rhea using :mod:`bioversions`.
     version = bioversions.get_version("rhea")
@@ -89,7 +90,7 @@ def main(force: bool):
     fig, (lax, rax) = plt.subplots(1, 2, figsize=(10, 4))
 
     # Calculating scree plot
-    pca_full = PCA()
+    pca_full = PCA(random_state=random_state)
     pca_full.fit(fingerprint_df)
     y = np.cumsum(pca_full.explained_variance_ratio_)
     x = np.arange(y.shape[0])
@@ -101,16 +102,16 @@ def main(force: bool):
     lax.set_xlabel("Number Components")
     lax.set_ylabel("Cumulative Explained Variance")
 
-    pca_2d = PCA(2)
+    pca_2d = PCA(2, random_state=random_state)
     transformed_df = pd.DataFrame(
         pca_2d.fit_transform(fingerprint_df),
         index=fingerprint_df.index.map(str),
         columns=["PC1", "PC2"],
     )
 
-    kmeans = KMeans(7)
+    kmeans = KMeans(7, random_state=random_state)
     transformed_df["cluster"] = kmeans.fit_predict(
-        PCA(64).fit_transform(fingerprint_df)
+        PCA(64, random_state=random_state).fit_transform(fingerprint_df)
     ).astype(str)
     transformed_df.to_csv(output.joinpath("reaction_fingerprints_2d.tsv"), sep="\t")
     sns.scatterplot(
