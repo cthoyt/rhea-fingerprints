@@ -43,7 +43,9 @@ def main(force: bool):
         click.echo("Loading reaction dataframe")
         fingerprint_df = pd.read_csv(reaction_fingerprints_path, sep="\t", index_col=0)
         click.echo("Loaded reaction dataframe")
+        click.echo("::set-output name=RHEA_UPDATED::false")
     else:
+        click.echo(f"::set-output name=RHEA_UPDATED::{version}")
         # Use a version-specific PyStow directory for reproducible downloading
         # of external resources
         tqdm.write("Downloading/unpacking reaction archive")

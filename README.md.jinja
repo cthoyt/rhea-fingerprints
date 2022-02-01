@@ -6,15 +6,6 @@ in [Rhea](https://www.rhea-db.org).
 
 ## 🚀 Usage
 
-Installation of the requirements and running of the build script are handled with `tox`. The current
-version of Rhea is looked up with [`bioversions`](https://github.com/cthoyt/bioversions) so the
-provenance of the data can be properly traced. Run with:
-
-```shell
-$ pip install tox
-$ tox
-```
-
 The SMILES dataframe and DRFP-derived fingerprint dataframe can be loaded from GitHub with:
 
 ```python
@@ -34,6 +25,19 @@ Here's a 2D PCA scatterplot of the embeddings:
 Future work: figure out what's going on in these clusters. I'd bet they correspond to different
 reaction types enzyme classes, but the rhea-EC code mapping doesn't cover _any_ of them for
 some reason.
+
+## ♻️ Update
+
+Installation of the requirements and running of the build script are handled with `tox`. The current
+version of Rhea is looked up with [`bioversions`](https://github.com/cthoyt/bioversions) so the
+provenance of the data can be properly traced. Run with:
+
+```shell
+$ pip install tox
+$ tox
+```
+
+Additionally, a GitHub Action runs this update script on a monthly basis.
 
 ## ⚖️ License
 
