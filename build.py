@@ -10,6 +10,7 @@ import seaborn as sns
 from drfp import DrfpEncoder
 from more_click import force_option, verbose_option
 from rdkit.Chem import AllChem, rdChemReactions
+from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 from tqdm import tqdm
 
@@ -94,11 +95,17 @@ def main(force: bool):
         index=fingerprint_df.index.map(str),
         columns=["PC1", "PC2"],
     )
+
+    kmeans = KMeans(7)
+    transformed_df["cluster"] = kmeans.fit_predict(
+        PCA(64).fit_transform(fingerprint_df)
+    ).astype(str)
     transformed_df.to_csv(output.joinpath("reaction_fingerprints_2d.tsv"), sep="\t")
     sns.scatterplot(
         data=transformed_df,
         x="PC1",
         y="PC2",
+        hue="cluster",
         ax=rax,
     )
     rax.set_title(f"PCA 2D Reduction (Rhea v{version})")
