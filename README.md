@@ -62,11 +62,14 @@ Rhea can be cited with:
 Differential reaction fingerprints can be cited with:
 
 ```bibtex
-@article{probst_schwaller_reymond_2021,
+@article{Probst2022,
+    abstract = {Differential Reaction Fingerprint DRFP is a chemical reaction fingerprint enabling simple machine learning models running on standard hardware to reach DFT- and deep learning-based accuracies in reaction yield prediction and reaction classification.},
     author = {Probst, Daniel and Schwaller, Philippe and Reymond, Jean-Louis},
-    title = {Reaction Classification and Yield Prediction using the Differential Reaction Fingerprint DRFP},
-    doi = {10.33774/chemrxiv-2021-mc870},
-    journal = {ChemRxiv},
-    year = {2021}
+    doi = {10.1039/D1DD00006C},
+    issn = {2635-098X},
+    journal = {Digital Discovery},
+    title = {{Reaction classification and yield prediction using the differential reaction fingerprint DRFP}},
+    url = {http://xlink.rsc.org/?DOI=D1DD00006C},
+    year = {2022}
 }
 ```
