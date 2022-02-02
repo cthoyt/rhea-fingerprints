@@ -8,6 +8,7 @@ import pandas as pd
 import pystow
 import seaborn as sns
 from drfp import DrfpEncoder
+from future import LABELS
 from jinja2 import Environment, FileSystemLoader
 from more_click import force_option, verbose_option
 from rdkit.Chem import AllChem, rdChemReactions
@@ -15,10 +16,8 @@ from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 from tqdm import tqdm
 
-HERE = pathlib.Path(__file__).parent.resolve()
-MODULE = pystow.module("bio", "rhea")
+from utils import HERE, MODULE, OUTPUT, README_PATH
 
-README_PATH = HERE.joinpath("README.md")
 UNKNOWN_LABEL = "Unknown"
 
 environment = Environment(
@@ -37,7 +36,7 @@ def main(force: bool, random_state: int):
     version = bioversions.get_version("rhea")
 
     # Create a version-specific output directory
-    output = HERE.joinpath("output", version)
+    output = OUTPUT.joinpath(version)
     output.mkdir(exist_ok=True, parents=True)
     metadata_path = output.joinpath("reaction_metadata.tsv")
     fingerprints_path = output.joinpath("reaction_fingerprints.tsv.gz")
@@ -161,15 +160,17 @@ def main(force: bool, random_state: int):
         PCA(64, random_state=random_state).fit_transform(fingerprint_df)
     ).astype(str)
     transformed_df["class"] = list(metadata_df["enzyme_class"])
+    transformed_df["class_label"] = transformed_df["class"].map(LABELS)
     transformed_df.to_csv(fingerprints_2d_path, sep="\t")
-    sns.scatterplot(
+    g = sns.scatterplot(
         data=transformed_df[transformed_df["class"] != UNKNOWN_LABEL],
         x="PC1",
         y="PC2",
-        hue="class",
+        hue="class_label",
         alpha=0.2,
         ax=rax,
     )
+    g.legend_.set_title(None)
     rax.set_title(f"PCA 2D Reduction (Rhea v{version})")
 
     plt.tight_layout()
