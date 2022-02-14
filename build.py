@@ -1,14 +1,10 @@
-import pathlib
-
 import bioversions
 import click
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import pystow
 import seaborn as sns
 from drfp import DrfpEncoder
-from future import LABELS
 from jinja2 import Environment, FileSystemLoader
 from more_click import force_option, verbose_option
 from rdkit.Chem import AllChem, rdChemReactions
@@ -16,7 +12,7 @@ from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 from tqdm import tqdm
 
-from utils import HERE, MODULE, OUTPUT, README_PATH, UNKNOWN_LABEL
+from utils import HERE, LABELS, MODULE, OUTPUT, README_PATH, UNKNOWN_LABEL
 
 environment = Environment(
     autoescape=True, loader=FileSystemLoader(HERE), trim_blocks=False
