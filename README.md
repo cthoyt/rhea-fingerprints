@@ -21,7 +21,7 @@ fingerprint_df = pd.read_csv(fingerprint_url, sep="\t", index_col=0)
 
 Here's a 2D PCA scatterplot of the embeddings:
 
-![Scatterplot of DRFPs](output/120/scatter.png)
+![Scatterplot of DRFPs](docs/120/scatter.png)
 
 ## ♻️ Update
 
