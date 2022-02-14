@@ -16,9 +16,7 @@ from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 from tqdm import tqdm
 
-from utils import HERE, MODULE, OUTPUT, README_PATH
-
-UNKNOWN_LABEL = "Unknown"
+from utils import HERE, MODULE, OUTPUT, README_PATH, UNKNOWN_LABEL
 
 environment = Environment(
     autoescape=True, loader=FileSystemLoader(HERE), trim_blocks=False
