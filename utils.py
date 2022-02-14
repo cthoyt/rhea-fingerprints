@@ -12,7 +12,7 @@ __all__ = [
 ]
 
 HERE = pathlib.Path(__file__).parent.resolve()
-OUTPUT = HERE.joinpath("output")
+OUTPUT = HERE.joinpath("docs")
 MODULE = pystow.module("bio", "rhea")
 
 README_PATH = HERE.joinpath("README.md")

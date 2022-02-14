@@ -11,10 +11,11 @@ The SMILES dataframe and DRFP-derived fingerprint dataframe can be loaded from G
 ```python
 import pandas as pd
 
-smiles_url = "https://github.com/cthoyt/rhea-fingerprints/raw/main/output/{{ version }}/reaction_smiles.tsv"
+base_url = "https://github.com/cthoyt/rhea-fingerprints/raw/main/docs"
+smiles_url = f"{base_url}/{{ version }}/reaction_smiles.tsv"
 smiles_df = pd.read_csv(smiles_url, sep="\t")
 
-fingerprint_url = "https://github.com/cthoyt/rhea-fingerprints/raw/main/output/{{ version }}/reaction_fingerprints.tsv.gz"
+fingerprint_url = f"{base_url}/{{ version }}/reaction_fingerprints.tsv.gz"
 fingerprint_df = pd.read_csv(fingerprint_url, sep="\t", index_col=0)
 ```
 
