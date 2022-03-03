@@ -1,4 +1,3 @@
-import bioversions
 import click
 import matplotlib.pyplot as plt
 import numpy as np
@@ -12,10 +11,19 @@ from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 from tqdm import tqdm
 
-from utils import HERE, LABELS, MODULE, OUTPUT, README_PATH, UNKNOWN_LABEL
+from utils import (
+    LABELS,
+    MODULE,
+    OUTPUT,
+    README_PATH,
+    TEMPLATES,
+    UNKNOWN_LABEL,
+    random_state_option,
+    version_option,
+)
 
 environment = Environment(
-    autoescape=True, loader=FileSystemLoader(HERE), trim_blocks=False
+    autoescape=True, loader=FileSystemLoader(TEMPLATES), trim_blocks=False
 )
 index_template = environment.get_template("README.md.jinja")
 
@@ -23,13 +31,11 @@ index_template = environment.get_template("README.md.jinja")
 @click.command()
 @verbose_option
 @force_option
-@click.option("--random-state", type=int, default=0)
-def main(force: bool, random_state: int):
+@random_state_option
+@version_option
+def main(force: bool, random_state: int, version: str):
     """Generate SMILES and differential reaction fingerprints for each Rhea entry."""
-    # Get the current version of Rhea using :mod:`bioversions`.
-    version = bioversions.get_version("rhea")
-
-    # Create a version-specific output directory
+    click.secho(f"Using Rhea v{version} and random state of {random_state}", fg="green")
     output = OUTPUT.joinpath(version)
     output.mkdir(exist_ok=True, parents=True)
     metadata_path = output.joinpath("reaction_metadata.tsv")
