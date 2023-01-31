@@ -38,7 +38,7 @@ from drfp import DrfpEncoder
 
 base_url = "https://github.com/cthoyt/rhea-fingerprints/raw/main/docs"
 url = f"{base_url}/{{ version }}/models/LogisticRegression.pkl"
-clf = pystow.ensure_pickle("bio", "rhea", "models", "124", url=url)
+clf = pystow.ensure_pickle("bio", "rhea", "models", "{{ version }}", url=url)
 
 rxn_smiles = [
     "CO.O[C@@H]1CCNC1.[C-]#[N+]CC(=O)OC>>[C-]#[N+]CC(=O)N1CC[C@@H](O)C1",
