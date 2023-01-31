@@ -158,7 +158,9 @@ def main(force: bool, random_state: int, version: str, progress: bool):
     lax.set_xlabel("Number Components")
     lax.set_ylabel("Cumulative Explained Variance")
 
-    reducer_2d = Isomap(n_neighbors=2)
+    # Future self: I know you're tempted to change this,
+    # but IsoMap doesn't work since this is too spares
+    reducer_2d = PCA(2, random_state=random_state)
     click.echo(f"Transforming to 2D with {reducer_2d.__class__.__name__}")
     transformed_df = pd.DataFrame(
         reducer_2d.fit_transform(fingerprint_df),

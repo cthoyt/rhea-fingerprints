@@ -48,13 +48,13 @@ def main(version: str, random_state: int, force: bool):
 
         rows = []
         classifiers = [
-            MLPClassifier(random_state=random_state),
-            DecisionTreeClassifier(random_state=random_state),
-            KNeighborsClassifier(n_neighbors=5),  # no random state necessary
             LogisticRegression(
                 multi_class="multinomial", max_iter=500, random_state=random_state
             ),
+            KNeighborsClassifier(n_neighbors=5),  # no random state necessary
+            DecisionTreeClassifier(random_state=random_state),
             RandomForestClassifier(random_state=random_state),
+            MLPClassifier(random_state=random_state),
         ]
         it = tqdm(classifiers)
         for clf in it:
