@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
-title: Rhea Differential Reaction Fingerprints and Analysis
+title: Rhea Differential Reaction Fingerprints for Enzyme Classification Prediction
 doi: 10.5281/zenodo.7591839 
 authors:
   - family-names: Hoyt

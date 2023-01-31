@@ -1,4 +1,4 @@
-# rhea-fingerprints
+# Rhea Differential Reaction Fingerprints for Enzyme Classification Prediction
 
 [![DOI](https://zenodo.org/badge/400263430.svg)](https://zenodo.org/badge/latestdoi/400263430)
 
@@ -43,6 +43,25 @@ Additionally, a GitHub Action runs this update script on a monthly basis.
 Code in this repository is licensed under the MIT License. Redistribution of parts of the Rhea
 database are redistributed under the CC-BY-4.0
 license ([more information here](https://www.rhea-db.org/help/license-disclaimer)).
+
+## 📖 Citation
+
+If you find this useful in your own work, please consider citing:
+
+```bibtex
+@software{charles_tapley_hoyt_2023_7591839,
+  author       = {Charles Tapley Hoyt},
+  title        = {Rhea Differential Reaction Fingerprints for Enzyme Classification Prediction},
+  month        = jan,
+  year         = 2023,
+  publisher    = {Zenodo},
+  version      = {v124},
+  doi          = {10.5281/zenodo.7591839},
+  url          = {https://doi.org/10.5281/zenodo.7591839}
+}
+```
+
+I also gave a [talk](https://bit.ly/really-cool-representations) on this in case you want to read up more.
 
 ## 🙏 Acknowledgements
 
