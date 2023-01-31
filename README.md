@@ -25,6 +25,35 @@ Here's a 2D PCA scatterplot of the embeddings:
 
 ![Scatterplot of DRFPs](docs/124/scatter.png)
 
+### Analysis
+
+This repository also generates reusable models for predicting enzyme codes based on DRFPs, trained
+using Rhea. It uses simple classifiers and performs really well.
+
+![Scatterplot of classifier results](docs/124/models/clf_results.png)
+
+You can re-use existing models in combination with [`drfp`](https://github.com/reymond-group/drfp) like:
+
+```python
+import pystow
+from drfp import DrfpEncoder
+
+base_url = "https://github.com/cthoyt/rhea-fingerprints/raw/main/docs"
+url = f"{base_url}/124/models/LogisticRegression.pkl"
+clf = pystow.ensure_pickle("bio", "rhea", "models", "124", url=url)
+
+rxn_smiles = [
+    "CO.O[C@@H]1CCNC1.[C-]#[N+]CC(=O)OC>>[C-]#[N+]CC(=O)N1CC[C@@H](O)C1",
+    "CCOC(=O)C(CC)c1cccnc1.Cl.O>>CCC(C(=O)O)c1cccnc1",
+]
+fps = DrfpEncoder.encode(rxn_smiles)
+
+predictions = clf.predict(fps)
+```
+
+> **Warning**
+> There might be some issues with reloading model weights, please let me know if this comes up.
+
 ## ♻️ Update
 
 Installation of the requirements and running of the build script are handled with `tox`. The current
