@@ -1,5 +1,7 @@
 # rhea-fingerprints
 
+[![DOI](https://zenodo.org/badge/400263430.svg)](https://zenodo.org/badge/latestdoi/400263430)
+
 This repository
 generates [differential reaction fingerprints](https://github.com/reymond-group/drfp) for reactions
 in [Rhea](https://www.rhea-db.org).
