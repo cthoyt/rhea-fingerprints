@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: Rhea Differential Reaction Fingerprints and Analysis
+doi: 10.5281/zenodo.7591839 
+authors:
+  - family-names: Hoyt
+    given-names: Charles Tapley
+    orcid: 0000-0003-4423-4370
