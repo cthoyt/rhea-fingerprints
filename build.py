@@ -34,7 +34,8 @@ index_template = environment.get_template("README.md.jinja")
 @force_option
 @random_state_option
 @version_option
-def main(force: bool, random_state: int, version: str):
+@click.option("--progress", is_flag=True)
+def main(force: bool, random_state: int, version: str, progress: bool):
     """Generate SMILES and differential reaction fingerprints for each Rhea entry."""
     click.secho(f"Using Rhea v{version} and random state of {random_state}", fg="green")
     output = OUTPUT.joinpath(version)
@@ -128,15 +129,18 @@ def main(force: bool, random_state: int, version: str):
 
         click.echo("Calculating differential reaction fingerprints")
         fingerprint_df = pd.DataFrame(
-            DrfpEncoder.encode(metadata_df.smiles), index=metadata_df.index
+            DrfpEncoder.encode(metadata_df.smiles, show_progress_bar=progress),
+            index=metadata_df.index,
         )
+        click.echo(f"Saving differential reaction fingerprints to {fingerprints_path}")
         fingerprint_df.to_csv(fingerprints_path, sep="\t")
 
+    click.echo("Rewriting readme")
     README_PATH.write_text(index_template.render(version=version) + "\n")
 
     fig, (lax, rax) = plt.subplots(1, 2, figsize=(10, 4))
 
-    # Calculating scree plot
+    click.echo("Calculating scree plot")
     pca_full = PCA(random_state=random_state)
     pca_full.fit(fingerprint_df)
     y = np.cumsum(pca_full.explained_variance_ratio_)
@@ -150,12 +154,14 @@ def main(force: bool, random_state: int, version: str):
     lax.set_ylabel("Cumulative Explained Variance")
 
     reducer_2d = Isomap(n_neighbors=2)
+    click.echo(f"Transforming to 2D with {reducer_2d.__class__.__name__}")
     transformed_df = pd.DataFrame(
         reducer_2d.fit_transform(fingerprint_df),
         index=fingerprint_df.index.map(str),
         columns=["PC1", "PC2"],
     )
 
+    click.echo("Applying K-means")
     kmeans = KMeans(7, random_state=random_state)
     transformed_df["cluster"] = kmeans.fit_predict(
         PCA(64, random_state=random_state).fit_transform(fingerprint_df)
