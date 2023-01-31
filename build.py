@@ -1,3 +1,5 @@
+import warnings
+
 import click
 import matplotlib.pyplot as plt
 import numpy as np
@@ -7,6 +9,7 @@ from drfp import DrfpEncoder
 from jinja2 import Environment, FileSystemLoader
 from more_click import force_option, verbose_option
 from rdkit.Chem import AllChem, rdChemReactions
+from scipy.sparse import SparseEfficiencyWarning
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 from sklearn.manifold import Isomap
@@ -22,6 +25,8 @@ from utils import (
     random_state_option,
     version_option,
 )
+
+warnings.simplefilter("ignore", SparseEfficiencyWarning)
 
 environment = Environment(
     autoescape=True, loader=FileSystemLoader(TEMPLATES), trim_blocks=False
