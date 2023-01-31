@@ -9,6 +9,7 @@ from more_click import force_option, verbose_option
 from rdkit.Chem import AllChem, rdChemReactions
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
+from sklearn.manifold import Isomap
 from tqdm import tqdm
 
 from utils import (
@@ -148,9 +149,9 @@ def main(force: bool, random_state: int, version: str):
     lax.set_xlabel("Number Components")
     lax.set_ylabel("Cumulative Explained Variance")
 
-    pca_2d = PCA(2, random_state=random_state)
+    reducer_2d = Isomap(n_neighbors=2)
     transformed_df = pd.DataFrame(
-        pca_2d.fit_transform(fingerprint_df),
+        reducer_2d.fit_transform(fingerprint_df),
         index=fingerprint_df.index.map(str),
         columns=["PC1", "PC2"],
     )
