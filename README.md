@@ -14,23 +14,23 @@ The SMILES dataframe and DRFP-derived fingerprint dataframe can be loaded from G
 import pandas as pd
 
 base_url = "https://github.com/cthoyt/rhea-fingerprints/raw/main/docs"
-smiles_url = f"{base_url}/125/reaction_smiles.tsv"
+smiles_url = f"{base_url}/126/reaction_smiles.tsv"
 smiles_df = pd.read_csv(smiles_url, sep="\t")
 
-fingerprint_url = f"{base_url}/125/reaction_fingerprints.tsv.gz"
+fingerprint_url = f"{base_url}/126/reaction_fingerprints.tsv.gz"
 fingerprint_df = pd.read_csv(fingerprint_url, sep="\t", index_col=0)
 ```
 
 Here's a 2D PCA scatterplot of the embeddings:
 
-![Scatterplot of DRFPs](docs/125/scatter.png)
+![Scatterplot of DRFPs](docs/126/scatter.png)
 
 ### Analysis
 
 This repository also generates reusable models for predicting enzyme codes based on DRFPs, trained
 using Rhea. It uses simple classifiers and performs really well.
 
-![Scatterplot of classifier results](docs/125/models/clf_results.png)
+![Scatterplot of classifier results](docs/126/models/clf_results.png)
 
 You can re-use existing models in combination with [`drfp`](https://github.com/reymond-group/drfp) like:
 
@@ -39,8 +39,8 @@ import pystow
 from drfp import DrfpEncoder
 
 base_url = "https://github.com/cthoyt/rhea-fingerprints/raw/main/docs"
-url = f"{base_url}/125/models/LogisticRegression.pkl"
-clf = pystow.ensure_pickle("bio", "rhea", "models", "125", url=url)
+url = f"{base_url}/126/models/LogisticRegression.pkl"
+clf = pystow.ensure_pickle("bio", "rhea", "models", "126", url=url)
 
 rxn_smiles = [
     "CO.O[C@@H]1CCNC1.[C-]#[N+]CC(=O)OC>>[C-]#[N+]CC(=O)N1CC[C@@H](O)C1",
